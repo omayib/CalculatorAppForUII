@@ -2,11 +2,10 @@ package id.co.technomotion.calculatorapp;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -26,99 +25,42 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /**
-         * =====================
-         *         STEP 2
-         * =====================
-         * matching your object using by id
-         * */
+
         btnAdd= (Button) findViewById(R.id.buttonAdd);
-        btnDevide= (Button) findViewById(R.id.buttonDevide);
         btnMinus= (Button) findViewById(R.id.buttonMinus);
         btnMultiply= (Button) findViewById(R.id.buttonMultiply);
+        btnDevide= (Button) findViewById(R.id.buttonDevide);
 
         input1= (EditText) findViewById(R.id.angka1);
         input2= (EditText) findViewById(R.id.angka2);
         output= (EditText) findViewById(R.id.editTextOutput);
 
-        /**
-         * =====================
-         *         STEP 3
-         * =====================
-         * activate each button using setOnClickListener() method
-         */
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * =====================
-                 *         STEP 4
-                 * =====================
-                 * create math logic for add two number
-                 */
-                String a1=input1.getText().toString();
-                String a2=input2.getText().toString();
+                String a1 = input1.getText().toString();
+                String a2 = input2.getText().toString();
 
-                Double hasil=Double.parseDouble(a1)+Double.parseDouble(a2);
+                if (a1.isEmpty()) {
+                    Toast.makeText(getApplication(), "input 1 wajib diisi", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (a2.isEmpty()) {
+                    Toast.makeText(getApplication(), "input 2 wajib diisi", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                output.setText(String.valueOf(hasil));
+                output.setText(Calculator.add(a1,a2));
+
+
             }
         });
 
-        btnMultiply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * =====================
-                 *         STEP 5
-                 * =====================
-                 * create math logic for add two number
-                 */
-                String a1=input1.getText().toString();
-                String a2=input2.getText().toString();
 
-                Double hasil=Double.parseDouble(a1)*Double.parseDouble(a2);
 
-                output.setText(String.valueOf(hasil));
-            }
-        });
 
-        btnMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * =====================
-                 *         STEP 6
-                 * =====================
-                 * create math logic for substract first number by second number
-                 */
-                String a1=input1.getText().toString();
-                String a2=input2.getText().toString();
 
-                Double hasil=Double.parseDouble(a1)-Double.parseDouble(a2);
-
-                output.setText(String.valueOf(hasil));
-            }
-        });
-
-        btnDevide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                 * =====================
-                 *         STEP 7
-                 * =====================
-                 * create math logic for devide two number
-                 */
-
-                String a1=input1.getText().toString();
-                String a2=input2.getText().toString();
-
-                Double hasil=Double.parseDouble(a1)/Double.parseDouble(a2);
-
-                output.setText(String.valueOf(hasil));
-            }
-        });
 
 
 
@@ -133,25 +75,4 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
